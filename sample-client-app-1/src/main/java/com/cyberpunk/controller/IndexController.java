@@ -1,4 +1,4 @@
-package com.learning.controller;
+package com.cyberpunk.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jasig.cas.client.util.AbstractCasFilter;

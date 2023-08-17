@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.15</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.cyberpunk</groupId>
+    <artifactId>spring-boot-starter-samples</artifactId>
+    <version>1.0.0</version>
+
+    <packaging>pom</packaging>
+    <name>Spring Boot Starter Samples</name>
+    <description>Spring Boot Starter Samples</description>
+    <modules>
+        <module>algorithm</module>
+        <module>demo-netty-server</module>
+        <module>sample-client-app-1</module>
+        <module>sample-client-app-2</module>
+        <module>sample-springboot-cas-client-starter</module>
+        <module>sample-springboot-netty-server-starter</module>
+        <module>sample-springboot-netty-client-starter</module>
+        <module>sample-springboot-oauth2-starter</module>
+        <module>sample-springboot-shardingsphere-starter</module>
+    </modules>
+    <properties>
+        <netty-server-version>4.1.86.Final</netty-server-version>
+        <cas-client-version>3.5.0</cas-client-version>
+        <springboot-version>2.6.15</springboot-version>
+        <lombok-version>1.18.28</lombok-version>
+        <logback-version>1.2.9</logback-version>
+        <snakeyaml-version>2.0</snakeyaml-version>
+        <spring-web-version>6.0.0</spring-web-version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty-server-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${springboot-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring-web-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring-web-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${springboot-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jasig.cas.client</groupId>
+                <artifactId>cas-client-core</artifactId>
+                <version>${cas-client-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml-version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

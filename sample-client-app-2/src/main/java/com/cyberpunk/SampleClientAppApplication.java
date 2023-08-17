@@ -1,4 +1,4 @@
-package com.learning;
+package com.cyberpunk;
 
 
 import net.unicon.cas.client.configuration.EnableCasClient;
