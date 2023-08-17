@@ -1,0 +1,14 @@
+server:
+  port: 8880
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/static/
+    suffix: .html
+    encoding: utf-8
+    mode: LEGACYHTML5
+cas:
+  server-url-prefix: http://127.0.0.1:8443/cas
+  server-login-url: http://127.0.0.1:8443/cas/login
+  client-host-url: http://127.0.0.1:8880
+  validation-type: cas3
