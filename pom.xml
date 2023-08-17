@@ -25,6 +25,15 @@
         <module>sample-springboot-netty-client-starter</module>
         <module>sample-springboot-oauth2-starter</module>
         <module>sample-springboot-shardingsphere-starter</module>
+        <module>sample-springboot-redis-starter</module>
+        <module>sample-springboot-elasticsearch-starter</module>
+        <module>sample-springboot-rocketmq-starter</module>
+        <module>sample-springboot-powerjob-starter</module>
+        <module>sample-springboot-minio-starter</module>
+        <module>sample-springboot-oss-starter</module>
+        <module>sample-springboot-pac4j-starter</module>
+        <module>sample-springboot-mybatisplus-starter</module>
+        <module>sample-springboot-spring-security-starter</module>
     </modules>
     <properties>
         <netty-server-version>4.1.86.Final</netty-server-version>
