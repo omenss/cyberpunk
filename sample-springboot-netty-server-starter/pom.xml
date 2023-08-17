@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cyberpunk</groupId>
-    <artifactId>sample-springboot-shardingsphere-starter</artifactId>
+    <artifactId>sample-springboot-netty-server-starter</artifactId>
     <version>1.0.0</version>
 
     <properties>
