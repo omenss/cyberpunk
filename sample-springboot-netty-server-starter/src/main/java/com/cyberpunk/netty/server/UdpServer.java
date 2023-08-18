@@ -1,7 +1,6 @@
 package com.cyberpunk.netty.server;
 
 import com.cyberpunk.netty.channel.ChannelInit;
-import com.cyberpunk.netty.handler.MessageHandler;
 import com.cyberpunk.netty.properties.NettyServerProperties;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -21,7 +20,7 @@ import java.net.InetSocketAddress;
  * @date 2023/8/17 16:30
  */
 @Slf4j
-public class TcpServer implements NettyServer {
+public class UdpServer implements NettyServer {
 
     private final ChannelInit channelInit;
 
@@ -31,8 +30,8 @@ public class TcpServer implements NettyServer {
 
     private final EventLoopGroup workerGroup;
 
-    public TcpServer(ChannelInit channelInit, NettyServerProperties serverProperties) {
-        this.channelInit = channelInit==null?new ChannelInit(new MessageHandler(null)):channelInit;
+    public UdpServer(ChannelInit channelInit, NettyServerProperties serverProperties) {
+        this.channelInit = channelInit;
         this.serverProperties = serverProperties;
         bossGroup = serverProperties.isUseEpoll() ? new EpollEventLoopGroup() : new NioEventLoopGroup();
         workerGroup = serverProperties.isUseEpoll() ? new EpollEventLoopGroup() : new NioEventLoopGroup();
@@ -41,15 +40,15 @@ public class TcpServer implements NettyServer {
 
     @Override
     public void start() {
-        log.info("初始化 TCP server ...");
-        this.tcpServer();
+        log.info("初始化 udp server ...");
+        this.udpServer();
     }
 
 
     /**
      * 初始化
      */
-    private void tcpServer() {
+    private void udpServer() {
         try {
             new ServerBootstrap()
                     .group(bossGroup, workerGroup)

@@ -2,14 +2,10 @@ package com.cyberpunk.netty.handler;
 
 import com.cyberpunk.netty.store.ChannelStore;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 
 /**
@@ -18,9 +14,14 @@ import java.util.Map;
  * @author lujun
  */
 @Slf4j
-@Component
-@ChannelHandler.Sharable
 public class MessageHandler extends SimpleChannelInboundHandler<String> {
+
+    private final AbstractMessageHandler.Builder<Object> builder;
+
+
+    public MessageHandler(AbstractMessageHandler.Builder<Object> builder) {
+        this.builder = builder;
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String message) throws Exception {
@@ -34,26 +35,9 @@ public class MessageHandler extends SimpleChannelInboundHandler<String> {
 
 
     protected void handleMessage(String message) {
-        AbstractMessageHandler.Builder<Object> builder = new AbstractMessageHandler.Builder<>();
-        builder.addHandler(new DefaultMessageHandler())
-                .build().doHandler(null);
+        builder.build().doHandler(message);
     }
 
-    /**
-     * 指定客户端发送
-     *
-     * @param clientId 其它已成功登录的客户端
-     * @param message  消息
-     */
-    public void sendByClientId(String clientId, String message) {
-        Channel channel = ChannelStore.getChannel(clientId);
-        if (null != channel) {
-            log.info("发送消息给{}:{}", clientId, message);
-            channel.writeAndFlush(message);
-        } else {
-            log.warn("客户端{}不在线", clientId);
-        }
-    }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {

@@ -1,0 +1,7 @@
+netty:
+  server:
+    port: 9999
+    host: 127.0.0.1
+    protocol: tcp
+    enabled: true
+    useEpoll: false

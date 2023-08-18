@@ -9,9 +9,9 @@ import java.util.Map;
 public class DefaultMessageHandler extends AbstractMessageHandler {
 
     @Override
-    public String doHandler(Map<String, String> map) {
+    public String doHandler(String message) {
         if (next != null) {
-            return next.doHandler(map);
+            return next.doHandler(message);
         }
         return "";
     }
