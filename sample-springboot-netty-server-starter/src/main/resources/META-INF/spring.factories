@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.cyberpunk.netty.configuration.NettyServerConfiguration
+  com.cyberpunk.netty.autoconfigure.NettyWebSocketAutoConfigure
