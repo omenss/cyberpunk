@@ -34,6 +34,8 @@
         <module>sample-springboot-pac4j-starter</module>
         <module>sample-springboot-mybatisplus-starter</module>
         <module>sample-springboot-spring-security-starter</module>
+        <module>demo-elasticsearch-product</module>
+        <module>demo-springboot-canal</module>
     </modules>
     <properties>
         <netty-server-version>4.1.86.Final</netty-server-version>
@@ -42,9 +44,15 @@
         <lombok-version>1.18.28</lombok-version>
         <logback-version>1.2.9</logback-version>
         <snakeyaml-version>2.0</snakeyaml-version>
-        <spring-web-version>6.0.0</spring-web-version>
-        <spring-webmvc-version>6.0.9</spring-webmvc-version>
+        <spring-web-version>5.3.27</spring-web-version>
+        <spring-webmvc-version>5.3.27</spring-webmvc-version>
         <mybatisplus-version>3.5.3.2</mybatisplus-version>
+        <elastic-search-version>8.8.2</elastic-search-version>
+        <jackson-json-version>2.12.7.1</jackson-json-version>
+        <commons-logging-version>1.1.1</commons-logging-version>
+        <jakarta.json-version>2.0.1</jakarta.json-version>
+        <hutool-version>5.8.21</hutool-version>
+
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -102,6 +110,37 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatisplus-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>co.elastic.clients</groupId>
+                <artifactId>elasticsearch-java</artifactId>
+                <version>${elastic-search-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-json-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons-logging-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.json</groupId>
+                <artifactId>jakarta.json-api</artifactId>
+                <version>${jakarta.json-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elastic-search-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

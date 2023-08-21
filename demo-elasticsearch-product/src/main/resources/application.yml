@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: es
+  # 数据源配置：
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/es?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+  es:
+    serverUrl: http://localhost:9200
+    apiKey: ${ELASTIC_API_KEY:ODZ6RUZZb0J2SGdOYmk2THhJQzc6Q1dGZTZ3Z2hRWHlDanl2dVk4TUJiZw==}
+    enabled: true
+server:
+  port: 8810
+

@@ -8,8 +8,8 @@
         <artifactId>spring-boot-starter-samples</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>algorithm</artifactId>
-    <version>1.0-SNAPSHOT</version>
+
+    <artifactId>demo-springboot-canal</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
