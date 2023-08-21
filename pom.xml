@@ -36,6 +36,7 @@
         <module>sample-springboot-spring-security-starter</module>
         <module>demo-elasticsearch-product</module>
         <module>demo-springboot-canal</module>
+        <module>demo-elk-log</module>
     </modules>
     <properties>
         <netty-server-version>4.1.86.Final</netty-server-version>
