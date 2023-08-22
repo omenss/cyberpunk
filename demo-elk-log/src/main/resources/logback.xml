@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <contextName>Logback For demo Mobile</contextName>
+    <property name="LOG_HOME" value="/log"/>
+    <springProperty scope="context" name="appName" source="spring.application.name"
+                    defaultValue="localhost"/>
+    ...
+
+    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        ...
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{25} ${appName} -%msg%n</pattern>
+        </encoder>
+        ...
+    </appender>
+    ...
+</configuration>
