@@ -1,0 +1,6 @@
+rocket-mq:
+  consumer:
+    enabled: true
+    namesrv-addr: 127.0.0.1:9876
+server:
+  port: 9996

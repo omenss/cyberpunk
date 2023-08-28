@@ -13,3 +13,4 @@ rocket-mq:
       - nameSrvAddr: 127.0.0.1:9876
         producerGroup: TEST_GROUP_2
         sendMsgTimeout: 5000
+        supportTransaction: true
