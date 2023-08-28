@@ -24,9 +24,9 @@ public class RocketMqTransactionProducer extends RocketMqProducer{
         this.producerGroup = defaultService.getProducerGroup();
     }
 
-    public void transactionProducerSend(String topic,String tog,String msg,Object arg){
+    public void transactionProducerSend(String topic,String tag,String msg,Object arg){
         try {
-            Message message = new Message(topic, tog, msg.getBytes(RemotingHelper.DEFAULT_CHARSET));
+            Message message = new Message(topic, tag, msg.getBytes(RemotingHelper.DEFAULT_CHARSET));
             TransactionSendResult transactionSendResult = producer.sendMessageInTransaction(message, arg);
             log.info("[ProducerGroup:{}] TOPIC: {}--> TRANSACTION_MSG:{}", producerGroup, topic, msg);
         } catch (UnsupportedEncodingException | MQClientException e) {

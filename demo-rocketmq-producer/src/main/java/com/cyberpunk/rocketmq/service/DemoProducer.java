@@ -2,6 +2,7 @@ package com.cyberpunk.rocketmq.service;
 
 import com.cyberpunk.rocketmq.annotation.RocketResource;
 import com.cyberpunk.rocketmq.producer.RocketMqProducer;
+import com.cyberpunk.rocketmq.producer.RocketMqTransactionProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +15,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class DemoProducer {
 
-    @RocketResource(producerGroup = "TEST_GROUP_1")
-    private RocketMqProducer rocketMqProducer1;
 
     @RocketResource(producerGroup = "TEST_GROUP_2")
-    private RocketMqProducer rocketMqProducer2;
+    private RocketMqTransactionProducer rocketMqProducer2;
 
 
     public void sendMq(String msg, String topic, String tag) {
-        boolean result = rocketMqProducer1.syncProducerSend(topic, tag, msg);
-        log.info("1.send result:{}", result);
-        result = rocketMqProducer2.syncProducerSend(topic, tag, msg);
-        log.info("2.send result:{}", result);
+        rocketMqProducer2.transactionProducerSend(topic, tag, msg, 100);
     }
 
 }
