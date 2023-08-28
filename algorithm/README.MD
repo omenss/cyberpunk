@@ -130,8 +130,8 @@ public class Solution {
     /**
      * 滑动窗口模式
      *
-     * @param s
-     * @return
+     * @param s 字符串
+     * @return int
      */
     public int lengthOfLongestSubstring(String s) {
         if (s.length() <= 1) {

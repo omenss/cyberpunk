@@ -1,0 +1,15 @@
+server:
+  port: 9998
+rocket-mq:
+  producer:
+    enabled: true
+    # 生产者namesrv全局配置
+    namesrv-addr: 127.0.0.1:9876
+    default-mq-producer-configs:
+      # namesrvAddr这里也可以单独配置（以这个为准，优先级高）
+      - namesrvAddr: 127.0.0.1:9876
+        producerGroup: TEST_GROUP_1
+        sendMsgTimeout: 5000
+      - nameSrvAddr: 127.0.0.1:9876
+        producerGroup: TEST_GROUP_2
+        sendMsgTimeout: 5000
