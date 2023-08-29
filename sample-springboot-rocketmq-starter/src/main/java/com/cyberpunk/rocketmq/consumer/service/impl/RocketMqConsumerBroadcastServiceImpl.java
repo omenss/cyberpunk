@@ -2,26 +2,25 @@ package com.cyberpunk.rocketmq.consumer.service.impl;
 
 import com.cyberpunk.rocketmq.consumer.RocketMqMsgHandler;
 import com.cyberpunk.rocketmq.consumer.config.RocketMqConsumerBaseConfig;
-import com.cyberpunk.rocketmq.consumer.config.RocketMqConsumerSubscribe;
+import com.cyberpunk.rocketmq.consumer.config.RocketMqConsumerConfig;
 import com.cyberpunk.rocketmq.consumer.service.AbstractRocketMqConsumer;
 import com.cyberpunk.rocketmq.consumer.service.RocketMqConsumerService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.apache.rocketmq.client.consumer.MessageSelector;
-import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
-import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
-import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+import org.apache.rocketmq.client.consumer.listener.*;
 import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.remoting.protocol.heartbeat.MessageModel;
 
 import java.util.List;
 
-
 /**
  * @author lujun
+ * @date 2023/8/29 09:35
  */
 @Slf4j
-public class RocketMqConsumerDefaultServiceImpl extends AbstractRocketMqConsumer implements RocketMqConsumerService {
+public class RocketMqConsumerBroadcastServiceImpl extends AbstractRocketMqConsumer implements RocketMqConsumerService {
 
     private final DefaultMQPushConsumer consumer;
 
@@ -29,7 +28,8 @@ public class RocketMqConsumerDefaultServiceImpl extends AbstractRocketMqConsumer
 
     private final RocketMqMsgHandler mqMsgHandler;
 
-    public RocketMqConsumerDefaultServiceImpl(RocketMqConsumerBaseConfig consumerConfig, RocketMqMsgHandler mqMsgHandler) {
+
+    public RocketMqConsumerBroadcastServiceImpl(RocketMqConsumerBaseConfig consumerConfig, RocketMqMsgHandler mqMsgHandler) {
         this.consumerBaseConfig = consumerConfig;
         this.consumer = new DefaultMQPushConsumer(consumerConfig.getConsumerGroup());
         this.consumer.setNamesrvAddr(consumerConfig.getNamesrvAddr());
@@ -46,7 +46,9 @@ public class RocketMqConsumerDefaultServiceImpl extends AbstractRocketMqConsumer
     @Override
     public void startConsumer() {
         try {
-            super.subScribe(consumerBaseConfig,this.consumer);
+            super.subScribe(consumerBaseConfig, this.consumer);
+            consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
+            consumer.setMessageModel(MessageModel.BROADCASTING);
             // 注册回调实现类来处理从broker拉取回来的消息
             consumer.registerMessageListener(new MessageListenerConcurrently() {
                 @Override
@@ -73,12 +75,10 @@ public class RocketMqConsumerDefaultServiceImpl extends AbstractRocketMqConsumer
             // 启动消费者实例
             consumer.start();
         } catch (MQClientException e) {
-            e.printStackTrace();
             log.error("[CustomerGroup:{} ] --> START_ERROR: {}", consumerBaseConfig.getConsumerGroup(), e.getMessage());
         }
         log.info("[CustomerGroup: {} ] --> START_SUCCESS ", consumerBaseConfig.getConsumerGroup());
     }
-
 
     @Override
     public void shutDownConsumer() {

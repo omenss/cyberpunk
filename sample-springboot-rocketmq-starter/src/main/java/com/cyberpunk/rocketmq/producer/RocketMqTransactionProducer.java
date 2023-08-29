@@ -11,12 +11,15 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 import java.io.UnsupportedEncodingException;
 
 
+/**
+ * @author lujun
+ */
 @Slf4j
-public class RocketMqTransactionProducer extends RocketMqProducer{
+public class RocketMqTransactionProducer extends RocketMqProducer {
 
-    private String producerGroup;
+    private final String producerGroup;
 
-    private TransactionMQProducer producer;
+    private final TransactionMQProducer producer;
 
     public RocketMqTransactionProducer(RocketMqProduceTransactionServiceImpl defaultService) {
         super(defaultService);
@@ -24,13 +27,13 @@ public class RocketMqTransactionProducer extends RocketMqProducer{
         this.producerGroup = defaultService.getProducerGroup();
     }
 
-    public void transactionProducerSend(String topic,String tag,String msg,Object arg){
+    public void transactionProducerSend(String topic, String tag, String msg, Object arg) {
         try {
             Message message = new Message(topic, tag, msg.getBytes(RemotingHelper.DEFAULT_CHARSET));
             TransactionSendResult transactionSendResult = producer.sendMessageInTransaction(message, arg);
-            log.info("[ProducerGroup:{}] TOPIC: {}--> TRANSACTION_MSG:{}", producerGroup, topic, msg);
+            log.info("[ProducerGroup:{}] TOPIC: {}--> TRANSACTION_MSG:{}---TransactionSendResult{}", producerGroup, topic, msg,transactionSendResult);
         } catch (UnsupportedEncodingException | MQClientException e) {
-            log.info("[ProducerGroup:{}] TOPIC: {}--> TRANSACTION_SEND_ERROR({})", producerGroup, topic, e.getMessage());
+            log.error("[ProducerGroup:{}] TOPIC: {}--> TRANSACTION_SEND_ERROR({})", producerGroup, topic, e.getMessage(),e);
         }
     }
 }

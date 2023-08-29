@@ -62,10 +62,11 @@ public class RocketMqConsumerBeanPostProcessor implements InstantiationAwareBean
         rocketMqConsumerBaseConfig.setPullBatchSize(annotation.pullBatchSize());
         rocketMqConsumerBaseConfig.setConsumeTimeout(annotation.consumeTimeout());
         rocketMqConsumerBaseConfig.setMaxReconsumeTimes(annotation.maxReconsumeTimes());
-        rocketMqConsumerBaseConfig.setOrderConsumer(annotation.isOrderConsumer());
+        rocketMqConsumerBaseConfig.setConsumerType(annotation.consumerType());
         Set<RocketMqConsumerSubscribe> rocketMqConsumerSubscribes = new HashSet<>(4);
         for (int i = 0; i < annotation.subscribes().length; i++) {
-            Assert.isTrue(rocketMqConsumerSubscribes.add(new RocketMqConsumerSubscribe(annotation.subscribes()[i].topic(), annotation.subscribes()[i].tag())),
+            Assert.isTrue(rocketMqConsumerSubscribes.add(new RocketMqConsumerSubscribe(annotation.subscribes()[i].topic(),
+                            annotation.subscribes()[i].tag(), annotation.subscribes()[i].sql(), annotation.subscribes()[i].subExpression())),
                     "ConsumerGroup: " + rocketMqConsumerBaseConfig.getConsumerGroup() + " can't subscribe to two of the same topics");
         }
         rocketMqConsumerBaseConfig.setSubscribes(rocketMqConsumerSubscribes);

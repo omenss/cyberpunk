@@ -10,8 +10,8 @@ import org.springframework.util.Assert;
 
 
 /**
- * @description :RocketMq 事务监听器
  * @author lujun
+ * @description :RocketMq 事务监听器
  * @date 2023/08/28 14:06
  */
 public class RocketMqTransactionListener implements TransactionListener {

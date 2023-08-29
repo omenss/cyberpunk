@@ -11,9 +11,36 @@ public class RocketMqConsumerSubscribe {
 
     private String tag;
 
+    private String sql;
+
+    private String subExpression;
+
     public RocketMqConsumerSubscribe(String topic, String tag) {
         this.tag = tag;
         this.topic = topic;
+    }
+
+    public RocketMqConsumerSubscribe(String topic, String tag, String sql,String subExpression) {
+        this.tag = tag;
+        this.topic = topic;
+        this.sql = sql;
+        this.subExpression=subExpression;
+    }
+
+    public String getSql() {
+        return sql;
+    }
+
+    public void setSql(String sql) {
+        this.sql = sql;
+    }
+
+    public String getSubExpression() {
+        return subExpression;
+    }
+
+    public void setSubExpression(String subExpression) {
+        this.subExpression = subExpression;
     }
 
     public String getTopic() {

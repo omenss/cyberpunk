@@ -1,9 +1,10 @@
 package com.cyberpunk.rocketmq.consumer.factory;
 
-import com.cyberpunk.rocketmq.consumer.service.RocketMqConsumerService;
 import com.cyberpunk.rocketmq.consumer.RocketMqMsgHandler;
 import com.cyberpunk.rocketmq.consumer.config.RocketMqConsumerBaseConfig;
 import com.cyberpunk.rocketmq.consumer.config.RocketMqConsumerConfig;
+import com.cyberpunk.rocketmq.consumer.service.RocketMqConsumerService;
+import com.cyberpunk.rocketmq.consumer.service.impl.RocketMqConsumerBroadcastServiceImpl;
 import com.cyberpunk.rocketmq.consumer.service.impl.RocketMqConsumerDefaultServiceImpl;
 import com.cyberpunk.rocketmq.consumer.service.impl.RocketMqConsumerOrderlyServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -44,8 +45,17 @@ public class RocketMqConsumerFactory {
     }
 
     public void setConsumer(RocketMqConsumerBaseConfig consumerBaseConfig, RocketMqMsgHandler mqMsgHandler) {
-        CONSUMER_MAP.put(consumerBaseConfig.getConsumerGroup(), consumerBaseConfig.getOrderConsumer() ?
-                new RocketMqConsumerOrderlyServiceImpl(consumerBaseConfig, mqMsgHandler) : new RocketMqConsumerDefaultServiceImpl(consumerBaseConfig, mqMsgHandler));
+        switch (consumerBaseConfig.getConsumerType()) {
+            case BROADCAST:
+                CONSUMER_MAP.put(consumerBaseConfig.getConsumerGroup(), new RocketMqConsumerBroadcastServiceImpl(consumerBaseConfig, mqMsgHandler));
+                break;
+            case ORDERLY:
+                CONSUMER_MAP.put(consumerBaseConfig.getConsumerGroup(), new RocketMqConsumerOrderlyServiceImpl(consumerBaseConfig, mqMsgHandler));
+                break;
+            default:
+                CONSUMER_MAP.put(consumerBaseConfig.getConsumerGroup(), new RocketMqConsumerDefaultServiceImpl(consumerBaseConfig, mqMsgHandler));
+                break;
+        }
     }
 
     public RocketMqConsumerConfig getCommonConsumerConfig() {

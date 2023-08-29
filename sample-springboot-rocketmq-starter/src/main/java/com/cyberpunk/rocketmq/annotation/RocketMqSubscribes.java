@@ -13,4 +13,8 @@ import java.lang.annotation.Target;
 public @interface RocketMqSubscribes {
     String topic();
     String tag() default "*";
+
+    String sql() default "";
+
+    String subExpression() default "*";
 }

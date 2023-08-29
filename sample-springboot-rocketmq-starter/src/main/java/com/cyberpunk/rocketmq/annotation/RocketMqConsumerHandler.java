@@ -1,7 +1,7 @@
 package com.cyberpunk.rocketmq.annotation;
 
+import com.cyberpunk.rocketmq.enums.ConsumerType;
 import org.springframework.stereotype.Component;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -57,4 +57,7 @@ public @interface RocketMqConsumerHandler {
      * 是否顺序消费
      **/
     boolean isOrderConsumer() default false;
+
+
+    ConsumerType consumerType() default ConsumerType.DEFAULT;
 }

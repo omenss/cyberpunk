@@ -1,5 +1,7 @@
 package com.cyberpunk.rocketmq.consumer.config;
 
+import com.cyberpunk.rocketmq.enums.ConsumerType;
+
 import java.util.Set;
 
 /**
@@ -16,7 +18,8 @@ public class RocketMqConsumerBaseConfig {
     private Integer pullBatchSize;
     private Integer consumeTimeout;
     private Integer maxReconsumeTimes;
-    private Boolean isOrderConsumer;
+    private ConsumerType consumerType;
+
 
     public String getNamesrvAddr() {
         return namesrvAddr;
@@ -79,6 +82,7 @@ public class RocketMqConsumerBaseConfig {
         result = prime * result + ((pullBatchSize == null) ? 0 : pullBatchSize.hashCode());
         result = prime * result + ((consumeTimeout == null) ? 0 : consumeTimeout.hashCode());
         result = prime * result + ((maxReconsumeTimes == null) ? 0 : maxReconsumeTimes.hashCode());
+        result = prime * result + ((consumerType == null) ? 0 : consumerType.hashCode());
         return result;
     }
 
@@ -129,11 +133,12 @@ public class RocketMqConsumerBaseConfig {
         return this.subscribes;
     }
 
-    public Boolean getOrderConsumer() {
-        return isOrderConsumer;
+
+    public ConsumerType getConsumerType() {
+        return consumerType;
     }
 
-    public void setOrderConsumer(Boolean orderConsumer) {
-        isOrderConsumer = orderConsumer;
+    public void setConsumerType(ConsumerType consumerType) {
+        this.consumerType = consumerType;
     }
 }

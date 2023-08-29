@@ -2,7 +2,7 @@ package com.cyberpunk.rocketmq.consumer.service.impl;
 
 import com.cyberpunk.rocketmq.consumer.RocketMqMsgHandler;
 import com.cyberpunk.rocketmq.consumer.config.RocketMqConsumerBaseConfig;
-import com.cyberpunk.rocketmq.consumer.config.RocketMqConsumerSubscribe;
+import com.cyberpunk.rocketmq.consumer.service.AbstractRocketMqConsumer;
 import com.cyberpunk.rocketmq.consumer.service.RocketMqConsumerService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -18,7 +18,7 @@ import java.util.List;
  * @author lujun
  */
 @Slf4j
-public class RocketMqConsumerOrderlyServiceImpl implements RocketMqConsumerService {
+public class RocketMqConsumerOrderlyServiceImpl extends AbstractRocketMqConsumer implements RocketMqConsumerService {
 
     private final DefaultMQPushConsumer consumer;
 
@@ -43,9 +43,7 @@ public class RocketMqConsumerOrderlyServiceImpl implements RocketMqConsumerServi
     @Override
     public void startConsumer() {
         try {
-            for (RocketMqConsumerSubscribe next : consumerBaseConfig.getSubscribes()) {
-                this.consumer.subscribe(next.getTopic(), next.getTag());
-            }
+            super.subScribe(consumerBaseConfig, this.consumer);
             // 注册回调实现类来处理从broker拉取回来的消息
             consumer.registerMessageListener(new MessageListenerOrderly() {
                 @Override
