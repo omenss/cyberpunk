@@ -27,4 +27,6 @@ public class Sku {
     private BigDecimal skuPrice;
 
     private Long spuId;
+
+    private String skuNo;
 }

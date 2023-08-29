@@ -1,8 +1,10 @@
 package com.cyberpunk.es.demo.facade.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.cyberpunk.es.demo.cmd.ProductFeatureCreateCmd;
 import com.cyberpunk.es.demo.cmd.ProductSkuCreateCmd;
 import com.cyberpunk.es.demo.cmd.ProductSpuCreateCmd;
+import com.cyberpunk.es.demo.entity.Feature;
 import com.cyberpunk.es.demo.entity.Sku;
 import com.cyberpunk.es.demo.entity.Spu;
 import com.cyberpunk.es.demo.facade.ProductService;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,16 +43,27 @@ public class ProductServiceImpl implements ProductService {
         List<ProductSkuCreateCmd> skus =
                 cmd.getSkus();
         if (CollUtil.isNotEmpty(skus)) {
-            List<Sku> skuList = new ArrayList<>(skus.size());
             for (ProductSkuCreateCmd skuCreateCmd : skus) {
                 Sku sku = new Sku();
                 sku.setSkuName(skuCreateCmd.getSkuName());
                 sku.setSkuDesc(skuCreateCmd.getSkuDesc());
                 sku.setSkuPrice(skuCreateCmd.getSkuPrice());
+                sku.setSkuNo(UUID.randomUUID().toString());
                 sku.setSpuId(spu.getId());
-                skuList.add(sku);
+                skuService.save(sku);
+                List<ProductFeatureCreateCmd> features = skuCreateCmd.getFeatures();
+                if (CollUtil.isNotEmpty(features)) {
+                    List<Feature> featureList = new ArrayList<>(features.size());
+                    for (ProductFeatureCreateCmd featureCreateCmd : features) {
+                        Feature feature = new Feature();
+                        feature.setFeatureName(featureCreateCmd.getFeatureName());
+                        feature.setFeatureValue(featureCreateCmd.getFeatureValue());
+                        feature.setSkuId(sku.getId());
+                        featureList.add(feature);
+                    }
+                    featureService.saveBatch(featureList);
+                }
             }
-            skuService.saveBatch(skuList);
         }
     }
 }
