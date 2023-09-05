@@ -18,12 +18,12 @@ public class TopicRabbitConfig {
     public final static String TOPIC_EXCHANGE = "topicExchange";
 
     @Bean
-    public Queue queue_one(){
+    public Queue queueOne(){
         return new Queue(TOPIC_ONE);
     }
 
     @Bean
-    public Queue queue_two(){
+    public Queue queueTwo(){
         return new Queue(TOPIC_TWO);
     }
 
@@ -33,14 +33,14 @@ public class TopicRabbitConfig {
     }
 
     @Bean
-    Binding bindingExchangeOne(Queue queue_one, TopicExchange exchange){
-        return BindingBuilder.bind(queue_one).to(exchange).with("topic.one");
+    Binding bindingExchangeOne(Queue queueOne, TopicExchange exchange){
+        return BindingBuilder.bind(queueOne).to(exchange).with("topic.one");
     }
 
     @Bean
-    Binding bindingExchangeTwo(Queue queue_two, TopicExchange exchange){
+    Binding bindingExchangeTwo(Queue queueTwo, TopicExchange exchange){
         //# 表示零个或多个词
         //* 表示一个词
-        return BindingBuilder.bind(queue_two).to(exchange).with("topic.#");
+        return BindingBuilder.bind(queueTwo).to(exchange).with("topic.#");
     }
 }
