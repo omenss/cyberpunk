@@ -39,6 +39,7 @@
         <module>demo-elk-log</module>
         <module>demo-rocketmq-producer</module>
         <module>demo-rocketmq-consumer</module>
+        <module>demo-rabbitmq</module>
     </modules>
     <properties>
         <netty-server-version>4.1.86.Final</netty-server-version>
